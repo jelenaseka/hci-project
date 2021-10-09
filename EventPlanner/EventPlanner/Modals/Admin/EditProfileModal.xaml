@@ -1,0 +1,35 @@
+﻿<Window x:Class="EventPlanner.Pages.Admin.EditProfileModal"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EventPlanner.Pages.Admin"
+      mc:Ignorable="d"
+      d:DesignHeight="370" d:DesignWidth="300"
+      Title="EditProfileModal" Height="352" Width="260">
+
+    <Grid Margin="0.5cm">
+        <Grid.RowDefinitions >
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.4*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition Width="0.5*" />
+        </Grid.ColumnDefinitions>
+        <Label x:Name="FullNameLabel" Content="Full Name"  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="FullNameEdtProfileModalTextBox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,0.3" Height="20pt" TextWrapping="Wrap"/>
+        <Label x:Name="UsernameLabel" Content="Username" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="UsernameEditProfileModalTextBox" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,0.3" Height="20pt" TextWrapping="Wrap"/>
+        <Label x:Name="PasswordLabel" Content="Password" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom"/>
+        <Button x:Name="CancelEditProfileModalButton" Content="cancel" Grid.Row="6" Grid.Column="1" Height="20pt" Width="50pt" Click="EditProfileButton_Click"/>
+        <Button x:Name="SaveEditProfileModalButton" Content="save" Grid.Row="7" Grid.Column="0" Height="20pt" Width="50pt"/>
+        <PasswordBox x:Name="PasswordEditProfileModalPasswordBox" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,0.3" Height="20pt"/>
+
+    </Grid>
+</Window>

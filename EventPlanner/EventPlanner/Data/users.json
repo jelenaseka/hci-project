@@ -1,0 +1,34 @@
+﻿[
+  {
+    "ID": 1,
+    "firstName": "Marko",
+    "lastName": "Markovic",
+    "password": "test",
+    "username": "marko.markovic",
+    "role": "user"
+  },
+  {
+    "ID": 2,
+    "firstName": "Petar",
+    "lastName": "Petrovic",
+    "password": "test",
+    "username": "petar.petrovic",
+    "role": "organizer"
+  },
+  {
+    "ID": 3,
+    "firstName": "Lazar",
+    "lastName": "Lazaravic",
+    "password": "test",
+    "username": "lazar.lazarevic",
+    "role": "organizer"
+  },
+  {
+    "ID": 4,
+    "firstName": "Admin",
+    "lastName": "Admin",
+    "password": "test",
+    "username": "admin",
+    "role": "admin"
+  }
+]

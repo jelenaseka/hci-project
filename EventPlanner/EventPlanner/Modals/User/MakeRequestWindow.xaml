@@ -1,0 +1,69 @@
+﻿<Window x:Class="EventPlanner.Modals.User.MakeRequestWindow"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EventPlanner.Modals.User"
+      xmlns:components="clr-namespace:EventPlanner.Components" xmlns:ViewModels="clr-namespace:EventPlanner.ViewModels" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="770"
+      MinHeight="450"
+      MinWidth="770"
+        Name="makeRequestWindow"
+      Title="Make Request" Height="450" Width="770">
+    <Window.DataContext>
+        <ViewModels:EventDetailsViewModel/>
+    </Window.DataContext>
+    <Grid MaxWidth="35cm" Margin="0.5cm" MaxHeight="17cm">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="3*" />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*" MaxWidth="4.5cm" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="0.3cm" />
+            <ColumnDefinition MaxWidth="4.5cm" />
+            <ColumnDefinition />
+            <ColumnDefinition MaxWidth="4.5cm" />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" FontSize="14" Content="Making Request" />
+        <Label Grid.Row="1" Grid.Column="0" Content="Title:" VerticalAlignment="Top" />
+        
+        <TextBox Grid.Row="1" Grid.Column="1" Name="titleTextBox" Height="20pt" VerticalAlignment="Top" Text="{Binding EventDetails.Title}" />
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Type:" VerticalAlignment="Top" />
+        <ComboBox Grid.Row="2" Grid.Column="1" Name="typeComboBox" Height="20pt" VerticalAlignment="Top"
+                  ItemsSource="{Binding Source={StaticResource EventTypeValueConverter}, Path=Strings}" 
+                  SelectedItem="{Binding EventDetails.Type, Converter={StaticResource EventTypeValueConverter}}"/>
+
+        <Label Grid.Row="3" Grid.Column="0" Content="Description:" VerticalAlignment="Top" />
+        <TextBox Grid.Row="3" Grid.Column="1" Name="descriptionTextBox" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" VerticalAlignment="Stretch" Margin="0,0,0,0.3cm" Text="{Binding EventDetails.Description}" />
+
+        <Label Grid.Row="4" Grid.Column="0" Content="Date From:" VerticalAlignment="Top" />
+        <DatePicker Grid.Row="4" Grid.Column="1" Name="dateFromTextBox" Height="20pt" VerticalAlignment="Top" SelectedDate="{Binding EventDetails.DateFrom}" />
+
+        <Label Grid.Row="5" Grid.Column="0" Content="Date To:" VerticalAlignment="Top" />
+        <DatePicker Grid.Row="5" Grid.Column="1" Name="dateToTextBox" Height="20pt" VerticalAlignment="Top" SelectedDate="{Binding EventDetails.DateTo}" />
+
+        <Label Grid.Row="6" Grid.Column="0" Content="Organizer:" VerticalAlignment="Top" />
+        <TextBox Grid.Row="6" Grid.Column="1" Name="organizerTextBox" IsEnabled="False" Height="20pt" VerticalAlignment="Top" Text="{Binding EventDetails.PotentialOrganizers, Converter={StaticResource OrganizerIdListConverter}}" />
+
+        <Label Grid.Row="1" Grid.Column="3" Content="Choose organizer (Optional)" VerticalAlignment="Top" />
+        <TextBox Grid.Row="1" Grid.Column="4" Name="organizerSearchTextBox" Height="20pt" VerticalAlignment="Top" Grid.ColumnSpan="2" KeyDown="organizerSearchTextBox_KeyDown" />
+
+        <components:RatedOrganizerList x:Name="ratedOrganizerList" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3" Grid.RowSpan="4" />
+        <Button Grid.Row="6" Grid.Column="3" Content="Add organizer" Command="{Binding AddPotentialOrganizerCmd}" CommandParameter="{Binding ElementName=ratedOrganizerList, Path=DataContext.SelectedOrganizer}" Style="{StaticResource MaterialDesignFlatButton}" Background="#e9fafc" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-1,0,0"/>
+
+        <Button Grid.Row="7" Grid.Column="0" Content="Back" Foreground="White" Name="backBtn" VerticalAlignment="Bottom" Command="{Binding Path=CancelRequestCmd}" CommandParameter="{Binding ElementName=makeRequestWindow, Path=.}"/>
+        <Button Grid.Row="7" Grid.Column="5" Content="Submit" Foreground="White" Name="submitBtn" VerticalAlignment="Bottom" Command="{Binding Path=ConfirmRequestCmd}" CommandParameter="{Binding ElementName=makeRequestWindow, Path=.}"/>
+
+
+    </Grid>
+</Window>

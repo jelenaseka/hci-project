@@ -1,0 +1,50 @@
+﻿<Window x:Class="EventPlanner.Modals.AddCollaboratorModal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EventPlanner.Modals"
+        mc:Ignorable="d"
+        Title="AddCollaboratorModal" Height="450" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Add Collaborator" HorizontalAlignment="Center"
+         VerticalAlignment="Center" FontSize="20"></TextBlock>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3.5*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Content="Name of company*" Padding="10,0,0,5" VerticalContentAlignment="Bottom"/>
+            <TextBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Name="collaboratorsCompanyNameTextBox" Width="230" Height="30" HorizontalAlignment="Center"/>
+            <Label Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Content="Address*" Padding="10,0,0,5" VerticalContentAlignment="Bottom" />
+            <TextBox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Name="collaboratorsAddressTextBox" Width="230" Height="30" HorizontalAlignment="Center"/>
+            <Label Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" Content="Company type*" Padding="10,0,0,5" VerticalContentAlignment="Bottom" />
+            <ComboBox Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Name="collaboratorsTypeComboBox" Width="230" Height="30" HorizontalAlignment="Center">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Grid.Row="6" Grid.Column="1" Height="30" Content="Cancel" VerticalAlignment="Top" Margin="0,30,10,0" Style="{StaticResource MaterialDesignFlatButton}" />
+            <Button Grid.Row="6" Grid.Column="2" Height="30" Content="Submit" VerticalAlignment="Top" Margin="10,30,00,0" Style="{StaticResource MaterialDesignFlatButton}"/>
+        </Grid>
+    </Grid>
+</Window>

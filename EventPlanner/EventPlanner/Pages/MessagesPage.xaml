@@ -1,0 +1,151 @@
+﻿<Page x:Class="EventPlanner.Pages.MessagesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:viewModels="clr-namespace:EventPlanner.ViewModels"
+      xmlns:local="clr-namespace:EventPlanner.Pages"
+      xmlns:i="clr-namespace:Microsoft.Xaml.Behaviors;assembly=Microsoft.Xaml.Behaviors"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      x:Name="MessagesPageComponent"
+      Title="MessagesPage">
+    <Page.DataContext>
+        <viewModels:UserMessagesViewModel />
+    </Page.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MaxWidth="6cm" />
+            <ColumnDefinition MaxWidth="0.2cm" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition MaxHeight="1cm" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Padding="10,5" Background="#00BCD4" Foreground="White" Text="Inbox"/>
+            <ScrollViewer Grid.Row="1">
+                <ItemsControl x:Name="messageComponent" ItemsSource="{Binding MessagesViewModels}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.InputBindings>
+                                    <MouseBinding MouseAction="LeftClick" Command="{Binding 
+                                        RelativeSource={
+                                            RelativeSource Mode=FindAncestor,
+                                            AncestorType=ItemsControl
+                                        },
+                                        Path=DataContext.SelectUsersMessageCmd}" CommandParameter="{Binding}" />
+                                </Grid.InputBindings>
+                                <Rectangle x:Name="borderComponent">
+                                    <Rectangle.Style>
+                                        <Style TargetType="Rectangle">
+                                            <Style.Triggers>
+                                                <DataTrigger Value="True">
+                                                    <DataTrigger.Binding>
+                                                        <MultiBinding Converter="{StaticResource MultiValueEqualityConverter}">
+                                                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}" Path="DataContext.SelectedViewModel" Mode="OneWay" />
+                                                            <Binding RelativeSource="{RelativeSource Mode=Self}" Path="DataContext" Mode="OneWay" />
+                                                        </MultiBinding>
+                                                    </DataTrigger.Binding>
+                                                    <Setter Property="Fill" Value="#eee" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Rectangle.Style>
+                                </Rectangle>
+                                <Label Style="{StaticResource MaterialDesignLabel}" HorizontalAlignment="Stretch" FontSize="11pt" Content="{Binding OtherPerson.FullName}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition MinHeight="24pt" MaxHeight="60pt" />
+            </Grid.RowDefinitions>
+            <ScrollViewer x:Name="messageScrollViewer">
+                <ItemsControl SizeChanged="ItemsControl_SizeChanged" DataContext="{Binding SelectedViewModel}" ItemsSource="{Binding Messages}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border x:Name="borderComponent"
+                                    Margin="0,0,0,10"
+                                    Padding="10"
+                                    BorderThickness="0.5"
+                                    CornerRadius="20"
+                            >
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsCurrentUsersMessage}" Value="False">
+                                                <Setter Property="HorizontalAlignment" Value="Left" />
+                                                <Setter Property="Background" Value="#eee"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsCurrentUsersMessage}" Value="True">
+                                                <Setter Property="HorizontalAlignment" Value="Right" />
+                                                <Setter Property="Background" Value="#00BCD4"/>
+                                                <Setter Property="BorderBrush" Value="#00BCD4"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <StackPanel Margin="18">
+                                    <TextBlock MaxWidth="9cm">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCurrentUsersMessage}" Value="True">
+                                                        <Setter Property="Text" Value="You" />
+                                                        <Setter Property="Foreground" Value="white"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsCurrentUsersMessage}" Value="False">
+                                                        <Setter Property="Text" Value="{Binding ElementName=messageComponent,
+                                                            Path=DataContext.SelectedViewModel.OtherPerson.FullName}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock MaxWidth="9cm" Margin="0,10,0,0" TextWrapping="Wrap" Text="{Binding Content}">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCurrentUsersMessage}" Value="True">
+                                                        <Setter Property="Foreground" Value="white"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition MaxWidth="2cm" />
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="messageTextBox" Text="{Binding SelectedViewModel.CurrentMessage, Mode=OneWay}" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" KeyDown="messageTextBox_KeyDown">
+                    <TextBox.InputBindings>
+                        <KeyBinding Command="{Binding SelectedViewModel.SendMessageCmd}"
+                                    CommandParameter="{Binding ElementName=messageTextBox, Path=Text}"
+                                    Key="Enter" />
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button Name="sendButton"
+                        Content="SEND"
+                        Grid.Column="1"
+                        Command="{Binding SelectedViewModel.SendMessageCmd}"
+                        CommandParameter="{Binding ElementName=messageTextBox, Path=Text}"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Foreground="White" VerticalAlignment="Bottom"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

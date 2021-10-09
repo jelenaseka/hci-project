@@ -1,0 +1,23 @@
+[
+  {
+    "ID": 1,
+    "UserFromId": 1,
+    "UserToId": 2,
+    "ElementId": 1,
+    "Type": "MESSAGE_SENT"
+  },
+  {
+    "ID": 2,
+    "UserFromId": 2,
+    "UserToId": 1,
+    "ElementId": 2,
+    "Type": "EVENT_REQUEST"
+  },
+  {
+    "ID": 3,
+    "UserFromId": 2,
+    "UserToId": 1,
+    "ElementId": 2,
+    "Type": "EVENT_CHANGED"
+  }
+]

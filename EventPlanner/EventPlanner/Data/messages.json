@@ -1,0 +1,48 @@
+﻿[
+  {
+    "ID": 1,
+    "Messages": [
+      {
+        "Content": "Hey, where are you?",
+        "ReceiverId": 1,
+        "SenderId": 2,
+        "Timestamp": "2021-06-06T13:00:00.0000000+02:00"
+      },
+      {
+        "Content": "Hey, hello?",
+        "ReceiverId": 2,
+        "SenderId": 1,
+        "Timestamp": "2021-06-06T13:15:00.0000000+02:00"
+      },
+      {
+        "Content": "I saw you the other day.",
+        "ReceiverId": 1,
+        "SenderId": 2,
+        "Timestamp": "2021-06-06T13:25:00.0000000+02:00"
+      }
+    ],
+    "UserA_ID": 1,
+    "UserB_ID": 2
+  },
+  {
+    "ID": 2,
+    "Messages": [
+      {
+        "ConversationId": 2,
+        "Content": "I've almost finished this event",
+        "ReceiverId": 1,
+        "SenderId": 3,
+        "Timestamp": "2021-06-06T13:00:00.0000000+02:00"
+      },
+      {
+        "ConversationId": 2,
+        "Content": "Hope you're doing ok",
+        "ReceiverId": 1,
+        "SenderId": 3,
+        "Timestamp": "2021-06-06T13:15:00.0000000+02:00"
+      }
+    ],
+    "UserA_ID": 1,
+    "UserB_ID": 3
+  }
+]

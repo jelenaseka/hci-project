@@ -1,0 +1,149 @@
+﻿<Page x:Class="EventPlanner.Pages.Admin.Homepage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ViewModels="clr-namespace:EventPlanner.ViewModels" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Homepage">
+    
+    <Grid>
+        <TabControl>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Style="{StaticResource MaterialDesignTextBlock}" Text="Organizers" />
+                </TabItem.Header>
+                <Grid Name="OrganizersGrid">
+                    <Grid.DataContext>
+                        <ViewModels:OrganizersViewModel/>
+                    </Grid.DataContext>
+                    <Grid.InputBindings>
+                        <KeyBinding Modifiers="Control"
+                                    Key="A"
+                                    Command="{Binding ElementName=OrganizersGrid, Path=DataContext.CreateAddWindowCmd}" CommandParameter="{Binding}"/>
+                    </Grid.InputBindings>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.2*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.2*" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="searchOrganizersTextBox" Grid.Column="0" />
+                        <Button Grid.Column="1" Content="Search" Name="searchOrganizersButton"
+                                Command="{Binding SearchCmd}" Foreground="White" CommandParameter="{Binding Text, ElementName=searchOrganizersTextBox}"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <ScrollViewer x:Name="scrollViewerOrganizers">
+                            <DataGrid Name="OrganizersDataGrid" Grid.Row="1" Grid.Column="0" 
+                    CanUserResizeColumns="False" CanUserReorderColumns="False"
+                    IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding Path=Organizers}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Username" Binding="{Binding Username}" Width="*"></DataGridTextColumn>
+                                    <DataGridTemplateColumn Width="*">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Margin="-30,0" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding ElementName=OrganizersGrid, Path=DataContext.CreateEditWindowCmd}" CommandParameter="{Binding}">
+                                                    <materialDesign:PackIcon Kind="Pencil" Margin="0,8,0,0" Foreground="#00BCD4"/>
+                                                </Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding ElementName=OrganizersGrid, Path=DataContext.DeleteCommand}" CommandParameter="{Binding}">
+                                                    <materialDesign:PackIcon Kind="Delete" Margin="0,8,0,0" Foreground="#00BCD4"/>
+                                                </Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </ScrollViewer>
+                    </Grid>
+                    
+                    <DockPanel Grid.Row="2">
+                        <Button x:Name="addOrganizerButton" Content="Add Organizer" Grid.Column="1" HorizontalAlignment="Right"
+                        Command="{Binding ElementName=OrganizersGrid, Path=DataContext.CreateAddWindowCmd}" CommandParameter="{Binding}"
+                        Style="{StaticResource MaterialDesignRaisedButton}" Foreground="White"/>
+                    </DockPanel>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Style="{StaticResource MaterialDesignTextBlock}" Text="Collaborators" />
+                </TabItem.Header>
+                <Grid Name="CollaboratorsGrid">
+                    <Grid.DataContext>
+                        <ViewModels:CollaboratorViewModel/>
+                    </Grid.DataContext>
+                    <Grid.InputBindings>
+                        <KeyBinding Modifiers="Control"
+                                    Key="A"
+                                    Command="{Binding ElementName=CollaboratorsGrid, Path=DataContext.CreateAddWindowCmd}" CommandParameter="{Binding}"/>
+                    </Grid.InputBindings>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.2*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.2*" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Column="0" x:Name="SearchCollaboratorsTextBox">
+                        </TextBox>
+                        <Button Grid.Column="1" Content="Search" Name="searchCollaboratorsButton" 
+                            Command="{Binding SearchCmd}" Foreground="White" CommandParameter="{Binding Text, ElementName=SearchCollaboratorsTextBox}"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <ScrollViewer x:Name="scrollViewerCollaborators">
+                            <DataGrid Name="CollaboratorsDataGrid" Grid.Column="0" ItemsSource="{Binding Path=Collaborators}"
+                    CanUserResizeColumns="False" CanUserReorderColumns="False"
+                    IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Address" Binding="{Binding Address}" Width="*"></DataGridTextColumn>
+                                    <DataGridTemplateColumn Width="*">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Margin="-30,0" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding ElementName=CollaboratorsGrid, Path=DataContext.CreateEditWindowCmd}" CommandParameter="{Binding}">
+                                                    <materialDesign:PackIcon Kind="Pencil" Margin="0,8,0,0" Foreground="#00BCD4"/>
+                                                </Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding ElementName=CollaboratorsDataGrid, Path=DataContext.DeleteCollaboratorCmd}" CommandParameter="{Binding}">
+                                                    <materialDesign:PackIcon Kind="Delete" Margin="0,8,0,0" Foreground="#00BCD4"/>
+                                                </Button>
+                                                </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </ScrollViewer>
+                    </Grid>
+                    <DockPanel Grid.Row="2">
+                        <Button Grid.Column="1" Content="Add Collaborator" HorizontalAlignment="Right" Foreground="White"
+                                Command="{Binding ElementName=CollaboratorsGrid, Path=DataContext.CreateAddWindowCmd}" CommandParameter="{Binding}"/>
+                    </DockPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        
+
+    </Grid>
+</Page>

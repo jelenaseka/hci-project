@@ -1,0 +1,26 @@
+[
+  {
+    "ID": 1,
+    "Name": "Kod dede Markuze",
+    "Type": "RESTAURANT",
+    "Address": "bulevarneki 2"
+  },
+  {
+    "ID": 2,
+    "Name": "Zikina klopa",
+    "Type": "RESTAURANT",
+    "Address": "Adresa 1"
+  },
+  {
+    "ID": 3,
+    "Name": "Marinini baloni",
+    "Type": "BALLOONS",
+    "Address": "Adresa 2"
+  },
+  {
+    "ID": 4,
+    "Name": "Pice kod Mice",
+    "Type": "DRINK_STORE",
+    "Address": "Adresa 3"
+  }
+]

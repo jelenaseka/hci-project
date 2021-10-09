@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="EventPlanner.Components.NavBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EventPlanner.Components"
+             xmlns:viewModels="clr-namespace:EventPlanner.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" Height="38"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <UserControl.DataContext>
+        <viewModels:NavBarViewModel />
+    </UserControl.DataContext>
+    <DockPanel>
+
+        <Button Name="homeNavBtn" Content="Homepage" Click="homeNavBtn_Click" Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisiblityConverter}}" IsEnabled="{Binding IsLoggedIn}" Style="{StaticResource MaterialDesignFlatButton}"/>
+        <Button Name="makeRequestNavBtn" Content="Make Request" Click="makeRequestNavBtn_Click" Visibility="{Binding IsUser, Converter={StaticResource BooleanToVisiblityConverter}}" IsEnabled="{Binding IsUser}" Style="{StaticResource MaterialDesignFlatButton}"/>
+        <Button Name="inboxNavBtn" Content="Inbox" Click="inboxNavBtn_Click" Visibility="{Binding IsNotAdmin, Converter={StaticResource BooleanToVisiblityConverter}}" IsEnabled="{Binding IsLoggedIn}" Style="{StaticResource MaterialDesignFlatButton}"/>
+        <Button Name="notificationsNavBtn" Content="Notifications" Click="notificationsNavBtn_Click" Visibility="{Binding IsNotAdmin, Converter={StaticResource BooleanToVisiblityConverter}}" IsEnabled="{Binding IsLoggedIn}" Style="{StaticResource MaterialDesignFlatButton}"/>
+        <Button Name="signOutNavBtn" Content="Sign out" Click="signOutNavBtn_Click" Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisiblityConverter}}" IsEnabled="{Binding IsLoggedIn}" Style="{StaticResource MaterialDesignFlatButton}"/>
+        <Button Name="profileNavBtn" Content="My Profile" Click="profileNavBtn_Click" Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisiblityConverter}}" IsEnabled="{Binding IsLoggedIn}" Style="{StaticResource MaterialDesignFlatButton}"/>
+        <Button Name="tutorialNavBtn" Content="View Tutorial" Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Right" Click="tutorialNavBtn_Click"/>
+    </DockPanel>
+</UserControl>

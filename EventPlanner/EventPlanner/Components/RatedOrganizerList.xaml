@@ -1,0 +1,151 @@
+﻿<UserControl x:Class="EventPlanner.Components.RatedOrganizerList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EventPlanner.Components"
+             xmlns:viewModels="clr-namespace:EventPlanner.ViewModels"
+             xmlns:models="clr-namespace:EventPlanner.Models"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <viewModels:OrganizersViewModel />
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.3*" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.4*" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Sort by:" VerticalAlignment="Top" />
+        <ComboBox Grid.Column="1" Name="sortByComboBox" Height="18pt" VerticalAlignment="Top" SelectionChanged="sortByComboBox_SelectionChanged" Loaded="sortByComboBox_Loaded">
+            <ComboBoxItem Tag="Rating" Content="Rating" />
+            <ComboBoxItem Tag="FirstName" Content="First Name" />
+            <ComboBoxItem Tag="LastName" Content="Last Name" />
+        </ComboBox>
+        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2">
+            <ListBox Background="#e9fafc" Name="organizersListBox" ItemsSource="{Binding Organizers}" SelectedItem="{Binding SelectedOrganizer, Mode=TwoWay}"  HorizontalContentAlignment="Stretch">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:Organizer}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.3*" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1}">
+                                        <Binding Path="FirstName" />
+                                        <Binding Path="LastName" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+                                <!--TODO: Figure out if there's a better way to paint the stars-->
+                                <Path Stroke="Transparent" StrokeThickness="1"
+                                      Data="M 5,0 L 4,4 L 0,4 L 3,7 L 2,11 L 5,9 L 6, 9 L 9,11 L 8,7 L 11,4 L 7,4 L 6,0">
+                                    <Path.Style>
+                                        <Style TargetType="{x:Type Path}">
+                                            <Setter Property="Fill" Value="Gray" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Rating}" Value="1">
+                                                    <Setter Property="Fill" Value="Gold" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Rating}" Value="2">
+                                                    <Setter Property="Fill" Value="Gold" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Rating}" Value="3">
+                                                    <Setter Property="Fill" Value="Gold" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Rating}" Value="4">
+                                                    <Setter Property="Fill" Value="Gold" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Rating}" Value="5">
+                                                    <Setter Property="Fill" Value="Gold" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Path.Style>
+                                </Path>
+                                <Path Stroke="Transparent" StrokeThickness="1"
+                                      Data="M 5,0 L 4,4 L 0,4 L 3,7 L 2,11 L 5,9 L 6, 9 L 9,11 L 8,7 L 11,4 L 7,4 L 6,0">
+                                    <Path.Style>
+                                        <Style TargetType="{x:Type Path}">
+                                            <Setter Property="Fill" Value="Gray" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Rating}" Value="2">
+                                                    <Setter Property="Fill" Value="Gold" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Rating}" Value="3">
+                                                    <Setter Property="Fill" Value="Gold" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Rating}" Value="4">
+                                                    <Setter Property="Fill" Value="Gold" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Rating}" Value="5">
+                                                    <Setter Property="Fill" Value="Gold" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Path.Style>
+                                </Path>
+                                <Path Stroke="Transparent" StrokeThickness="1"
+                                      Data="M 5,0 L 4,4 L 0,4 L 3,7 L 2,11 L 5,9 L 6, 9 L 9,11 L 8,7 L 11,4 L 7,4 L 6,0">
+                                    <Path.Style>
+                                        <Style TargetType="{x:Type Path}">
+                                            <Setter Property="Fill" Value="Gray" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Rating}" Value="3">
+                                                    <Setter Property="Fill" Value="Gold" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Rating}" Value="4">
+                                                    <Setter Property="Fill" Value="Gold" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Rating}" Value="5">
+                                                    <Setter Property="Fill" Value="Gold" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Path.Style>
+                                </Path>
+                                <Path Stroke="Transparent" StrokeThickness="1"
+                                      Data="M 5,0 L 4,4 L 0,4 L 3,7 L 2,11 L 5,9 L 6, 9 L 9,11 L 8,7 L 11,4 L 7,4 L 6,0">
+                                    <Path.Style>
+                                        <Style TargetType="{x:Type Path}">
+                                            <Setter Property="Fill" Value="Gray" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Rating}" Value="4">
+                                                    <Setter Property="Fill" Value="Gold" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Rating}" Value="5">
+                                                    <Setter Property="Fill" Value="Gold" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Path.Style>
+                                </Path>
+                                <Path Stroke="Transparent" StrokeThickness="1"
+                                      Data="M 5,0 L 4,4 L 0,4 L 3,7 L 2,11 L 5,9 L 6, 9 L 9,11 L 8,7 L 11,4 L 7,4 L 6,0">
+                                    <Path.Style>
+                                        <Style TargetType="{x:Type Path}">
+                                            <Setter Property="Fill" Value="Gray" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Rating}" Value="5">
+                                                    <Setter Property="Fill" Value="Gold" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Path.Style>
+                                </Path>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

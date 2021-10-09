@@ -1,0 +1,43 @@
+﻿<Window x:Class="EventPlanner.Modals.Admin.EditOrganizerModal"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EventPlanner.Pages.Admin"
+      mc:Ignorable="d" 
+      Width="300"
+      Height="400"
+      d:DesignHeight="400" d:DesignWidth="300"
+      Title="EditOrganizerModal">
+
+    <Grid Margin="0.5cm">
+        <Grid.RowDefinitions >
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.4*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition Width="0.5*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Text="Edit Organizer" FontSize="15"/>
+        <Label x:Name="FirstNameLabel" Content="First Name"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="FirstNameEditOrganizerModalTextBox"  Text="{Binding Path=Temp.FirstName, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,0.3" Height="20pt" TextWrapping="Wrap" />
+        <Label x:Name="LastNameLabel" Content="Last Name"  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="LastNameEditOrganizerModalTextBox"  Text="{Binding Path=Temp.LastName, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,0.3" Height="20pt" TextWrapping="Wrap" />
+        <Label x:Name="UsernameLabel" Content="Username" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="UsernameEditOrganizerModalTextBox"  Text="{Binding Path=Temp.Username, UpdateSourceTrigger=PropertyChanged}" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,0.3" Height="20pt" TextWrapping="Wrap" />
+        <Label x:Name="PasswordLabel" Content="Password" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom"/>
+        <Button x:Name="CancelEditOrganizerModalButton" Foreground="White" Content="cancel" Grid.Row="9" Grid.Column="1" Height="20pt" Width="50pt" Click="CancelEditOrganizerButton_Click"/>
+        <Button x:Name="SaveEditOrganizerModalButton" Foreground="White" Content="save" Grid.Row="9" Grid.Column="0" Height="20pt" Width="50pt" Click="SaveEditOrganizerModalButton_Click" Command="{Binding SaveCommand}"/>
+        <TextBox x:Name="PasswordEditOrganizerTextBox" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,0.3" Text="{Binding Path=Temp.Password, UpdateSourceTrigger=PropertyChanged}" Height="20pt" FontFamily="{StaticResource PasswordFont}" />
+
+    </Grid>
+</Window>

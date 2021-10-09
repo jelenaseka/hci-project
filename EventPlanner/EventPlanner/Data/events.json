@@ -1,0 +1,26 @@
+[
+  {
+    "Id": 1,
+    "Title": "Vencanje bube kureli i bube kureli",
+    "Type": "WEDDING",
+    "Description": "buba kureli se venca sam sa sobom",
+    "DateFrom": "2021-06-12 18:30",
+    "DateTo": "2021-06-13 3:00",
+    "UserId": "1",
+    "OrganizerId": "2",
+    "PotentialOrganizers": [ "2", "3" ],
+    "Tasks": []
+  },
+  {
+    "Id": 2,
+    "Title": "Rodjendan stefe",
+    "Type": "BIRTHDAY",
+    "Description": "stefa slavi 50ti rodjendan",
+    "DateFrom": "2021-06-22 18:30",
+    "DateTo": "2021-06-22 22:00",
+    "UserId": "1",
+    "OrganizerId": "-1",
+    "PotentialOrganizers": [ "2" ],
+    "Tasks": []
+  }
+]

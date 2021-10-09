@@ -1,0 +1,143 @@
+﻿<Window x:Class="EventPlanner.Modals.TaskModal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EventPlanner.Modals"
+        xmlns:viewmodels="clr-namespace:EventPlanner.ViewModels"
+        mc:Ignorable="d"
+        Name="taskWindow"
+        Title="TaskModal" Height="450" Width="350">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.3*"/>
+            <RowDefinition />
+            <RowDefinition Height="1.8*"/>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition Width="0.3*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center"
+         VerticalAlignment="Center" FontSize="20">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Mode}" Value="{x:Static viewmodels:Mode.Adding}">
+                            <Setter Property="Text" Value="Add Task"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Mode}" Value="{x:Static viewmodels:Mode.Viewing}">
+                            <Setter Property="Text" Value="Task Information"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Mode}" Value="{x:Static viewmodels:Mode.Editing}">
+                            <Setter Property="Text" Value="Edit Task"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <Label Grid.Row="1" Grid.Column="1" Content="Title:" />
+        <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2">
+            <TextBox Text="{Binding Temp.Title}" Margin="0,7,0,0" IsEnabled="{Binding IsEditing}"/>
+        </StackPanel>
+        <Label Grid.Row="2" Grid.Column="1" Content="Description:" />
+        <StackPanel Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2">
+            <TextBox Text="{Binding Temp.Description}" Margin="0,7,0,0" IsEnabled="{Binding IsEditing}" TextWrapping="Wrap" Height="70" VerticalScrollBarVisibility="Visible"/>
+        </StackPanel>
+        <Label Grid.Row="3" Grid.Column="1" Content="Task Level:" />
+        <StackPanel Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2">
+            <TextBox Text="{Binding Temp.Level}" Margin="0,7,0,0" IsEnabled="False" />
+        </StackPanel>
+        <Label Grid.Row="4" Grid.Column="1" Content="Task Type:" />
+        <ComboBox Grid.Column="2" Grid.Row="4" ItemsSource="{Binding TaskTypes}" Grid.ColumnSpan="2" IsEnabled="{Binding IsEditing}"
+            Width="185" Height="25" HorizontalAlignment="Center" SelectedItem="{Binding Temp.Type}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label Grid.Row="5" Grid.Column="1" Content="Collaborator:" />
+        <ComboBox Grid.Column="2" Grid.Row="5" SelectedItem="{Binding Temp.Collaborator}" ItemsSource="{Binding AllCollaborators}" Grid.ColumnSpan="2" IsEnabled="{Binding IsEditing}"
+            Width="185" Height="25" HorizontalAlignment="Center">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Grid Grid.Row="6" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="0" Foreground="White" Grid.Column="0" Content="Edit" Height="30" Margin="0,10,10,0" Command="{Binding EnableEditingTaskCmd}">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsEditing}" Value="True">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Grid.Row="0" Grid.Column="0" Content="Save Changes" Foreground="White" Margin="0,10,10,0" Command="{Binding EditTaskCmd}" CommandParameter="{Binding ElementName=taskWindow, Path=.}">
+
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsEditing}" Value="False">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <Button Grid.Row="0" Grid.Column="1" Content="Cancel" Command="{Binding CancelEditingTaskCmd}" Height="30" Margin="10,10,0,0">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=Mode}" Value="{x:Static viewmodels:Mode.Editing}">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=Mode}" Value="{x:Static viewmodels:Mode.Viewing}">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=Mode}" Value="{x:Static viewmodels:Mode.Adding}">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Grid.Style>
+                <Style TargetType="{x:Type Grid}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsOrganizer}" Value="False">
+                            <Setter Property="Visibility" Value="Hidden"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+        </Grid>
+        <Button Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Content="Seating Plan" Height="30" Visibility="{Binding IsSeatingPlan, Converter={StaticResource BooleanToVisiblityConverter}}" Command="{Binding OpenSeatingPlanCmd}" CommandParameter="{Binding Task}" />
+    </Grid>
+</Window>
